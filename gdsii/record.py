@@ -208,6 +208,7 @@ def _pack_int2(data):
         6
     """
     size = len(data)
+    data = [int(round(item)) for item in data]
     return struct.pack('>{0}h'.format(size), *data)
 
 def _pack_int4(data):
@@ -223,6 +224,7 @@ def _pack_int4(data):
         12
     """
     size = len(data)
+    data = [int(round(item)) for item in data]
     return struct.pack('>{0}l'.format(size), *data)
 
 def _real_to_int(fnum):

@@ -1,5 +1,5 @@
 import unittest
-from gdsii import library, elements
+from gdsii import library, elements, structure
 import os.path
 
 class TestLibraryLoad(unittest.TestCase):
@@ -46,6 +46,15 @@ class TestLibraryLoad(unittest.TestCase):
         self.assertEqual(len(elem.properties), 2)
         self.assertEqual(elem.properties[0], (1, b'test property 1'))
         self.assertEqual(elem.properties[1], (2, b'test property 2'))
+
+    def test_string_and_float_init(self):
+        lib = library.Library(5, 'NEWLIB.DB', 1e-9, 0.001)
+        struct = structure.Structure("NEWSTRUCT")
+        struct.append(elements.Boundary(0.0, 1000.0, [(1.7, 1.9)]))
+        lib.append(struct)
+        with open("data/lib", 'wb') as stream:
+            lib.save(stream)
+        os.remove("data/lib")
 
 test_cases = (TestLibraryLoad,)
 

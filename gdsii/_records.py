@@ -119,7 +119,9 @@ class StringRecord(SimpleRecord):
         gen.read_next()
 
     def save(self, instance, stream):
-        record.Record(self.gds_record, getattr(instance, self.variable)).save(stream)
+        attr = getattr(instance, self.variable)
+        record.Record(self.gds_record, attr if type(attr) is bytes else str.encode(attr)).save(stream)
+
 
 class ColRowRecord(AbstractRecord, SecondVar):
     def __init__(self, variable1, variable2):
