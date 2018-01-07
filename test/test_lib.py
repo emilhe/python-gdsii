@@ -2,7 +2,6 @@ import unittest
 from gdsii import library, elements, structure
 import os.path
 
-
 class TestLibraryLoad(unittest.TestCase):
     def setUp(self):
         file_name = os.path.join(os.path.dirname(__file__), 'data', 'test1.gds')
@@ -23,20 +22,20 @@ class TestLibraryLoad(unittest.TestCase):
         self.assertEqual(len(library), 1)
         struc = library[0]
         self.assertEqual(struc.name, b'test_struc1')
-        self.assertEqual(struc.mod_time.isoformat(), '1970-01structure.Structure("NEWSTRUCT")-01T01:00:00')
+        self.assertEqual(struc.mod_time.isoformat(), '1970-01-01T01:00:00')
         self.assertEqual(struc.acc_time.isoformat(), '2010-08-17T14:35:55')
         self.assertEqual(struc.strclass, None)
 
     def test_elements(self):
         struc = self.library[0]
-        self.assertEqual(len(strsaveuc), 2)
+        self.assertEqual(len(struc), 2)
         elem = struc[0]
         self.assertTrue(isinstance(elem, elements.Boundary))
         self.assertEqual(elem.layer, 34)
         self.assertEqual(elem.data_type, 0)
         self.assertEqual(elem.xy, [(33100, -198900), (48100, -198900), (48100, -186800),
-                                   (33100, -186800), (33100, -198900)])
-        self.assertEqual(elem.properties, [])  # TODO it should not be so
+            (33100, -186800), (33100, -198900)])
+        self.assertEqual(elem.properties, []) # TODO it should not be so
         elem = struc[1]
         self.assertTrue(isinstance(elem, elements.Path))
         self.assertEqual(elem.layer, 44)
@@ -59,14 +58,12 @@ class TestLibraryLoad(unittest.TestCase):
 
 test_cases = (TestLibraryLoad,)
 
-
 def load_tests(loader, tests, pattern):
     suite = unittest.TestSuite()
     for test_class in test_cases:
         tests = loader.loadTestsFromTestCase(test_class)
         suite.addTests(tests)
     return suite
-
 
 if __name__ == '__main__':
     unittest.main()
