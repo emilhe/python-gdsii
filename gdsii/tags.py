@@ -94,7 +94,9 @@ DICT = {
     'NODEPORT': 0x4200,
     'USERCONSTRAINT': 0x4300,
     'SPACERERROR': 0x4400,
-    'CONTACT': 0x4500
+    'CONTACT': 0x4500,
+    # Types only with .csf file format by Raith
+    'CIRCLE': 0x5600,
 }
 
 REV_DICT = {}
@@ -104,6 +106,7 @@ for (key, value) in DICT.items():
     REV_DICT[value] = key
 
 del key, value
+
 
 def type_of_tag(tag):
     """
@@ -123,6 +126,8 @@ def type_of_tag(tag):
     """
     return tag & 0xff
 
+
 if __name__ == '__main__':
     import doctest
+
     doctest.testmod()
